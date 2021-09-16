@@ -1,8 +1,8 @@
 export const availableFilters = {
-    NAME: 'NAME',
-    DATE: 'DATE',
-    TITLE: 'TITLE',
-    FIELD: 'FIELD',
+    NAME: 'name',
+    DATE: 'date',
+    TITLE: 'title',
+    FIELD: 'field',
 };
 
 export const availableFiltersValues = {
@@ -22,4 +22,22 @@ export const availableFiltersValues = {
         title: 'فیلد',
         type: 'string',
     }
+};
+
+export const availableSorters = {
+    ...availableFilters,
+    OLD_VALUE: 'old_value',
+    NEW_VALUE: 'new_value',
+};
+
+export const availableSortersValues = {
+    ...availableFiltersValues,
+    [availableSorters.OLD_VALUE]: {
+        title: 'مقدار قدیمی',
+        type: 'string',
+    },
+    [availableSorters.NEW_VALUE]: {
+        title: 'مقدار جدید',
+        type: 'string',
+    },
 };

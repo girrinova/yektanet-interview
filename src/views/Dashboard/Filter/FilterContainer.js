@@ -11,7 +11,7 @@ const initialFilters = Object.values(availableFilters).reduce((result, item) => 
 
 function FilterContainer({ filters, setFilters }) {
     const history = useHistory();
-    let query = useQuery();
+    const query = useQuery();
     const urlSearchValues = Object.fromEntries(query.entries());
     const prevUrlSearchValues = usePrevious(urlSearchValues);
 

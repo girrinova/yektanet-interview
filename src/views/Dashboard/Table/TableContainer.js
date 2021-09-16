@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import update from 'immutability-helper';
 import TablePresentation from './TablePresentation.js';
 import data from './data';
-import {sortArrayOfObjectsByField} from "../../../common/utils";
+import { sortArrayOfObjectsByField } from "../../../common/utils";
+import { availableFilters } from "../constants";
+import { createDataBST } from "./binarySearch";
 
 function TableContainer({ filters }) {
     const [ staredRowIds, setStaredRowIds ] = useState([]);
     const [ sorter, setSorter ] = useState('');
     const [ rows, setRows ] = useState(data);
+    const dataBST = createDataBST();
 
     useEffect(() => {
-        setStaredRowIds(JSON.parse(localStorage.getItem("saved-stars")))
+        setStaredRowIds(JSON.parse(localStorage.getItem("saved-stars")));
     }, []);
+
+    useEffect(() => {
+        setRows(applyFilters())
+    }, [filters]);
 
     useEffect(() => {
         localStorage.setItem("saved-stars", JSON.stringify(staredRowIds))
@@ -25,6 +32,16 @@ function TableContainer({ filters }) {
             setRows(sortArrayOfObjectsByField(data, sorter));
         }
     }, [sorter]);
+
+    const applyFilters = () => {
+        let filteredArray = [...data];
+        if (filters[availableFilters.DATE]) {
+            filteredArray = dataBST?.find(filters[availableFilters.DATE])?.items;
+        }
+        return Object.entries(filters).reduce((result, [key, value]) => {
+            return result.filter(item => item[key].toLowerCase().includes(value.toLowerCase()))
+        }, [...filteredArray])
+    };
 
     const onChangeRowStar = rowID => {
         const index = staredRowIds.indexOf(rowID);

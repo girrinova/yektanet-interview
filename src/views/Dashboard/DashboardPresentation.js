@@ -9,7 +9,7 @@ function DashboardPresentation() {
     return (
         <div className={'yekta-dashboard'}>
             <Filter {...{filters, setFilters}} />
-            <Table {...filters} />
+            <Table {...{filters}} />
         </div>
     );
 }

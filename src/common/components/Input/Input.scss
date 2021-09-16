@@ -1,0 +1,33 @@
+.yekta-input-container {
+  width: fit-content;
+
+  &.fullWidth {
+    width: 100%;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    > *:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+
+  h6 {
+    color: #000;
+  }
+
+  input {
+    border: 1px solid #a7a7a7;
+    border-radius: 4px;
+    height: 45px;
+    padding: 0 10px;
+
+    &:focus {
+      outline: none;
+      border-color: #4d4d4d;
+    }
+  }
+}

@@ -1,26 +1,17 @@
-import React, {useEffect, useState} from 'react';
-import PropTypes from 'prop-types';
-import style from './DashboardPresentation.scss';
+import React, { useState } from 'react';
+import './DashboardPresentation.scss';
 import Filter from "./Filter";
 import Table from "./Table";
 
 function DashboardPresentation() {
     const [ filters, setFilters ] = useState({});
 
-    useEffect(() => {
-    // TODO change Table values
-    }, [filters]);
-
     return (
-        <div>
+        <div className={'yekta-dashboard'}>
             <Filter {...{filters, setFilters}} />
-            <Table />
+            <Table {...filters} />
         </div>
     );
 }
-
-DashboardPresentation.propTypes = {};
-
-DashboardPresentation.defaultProps = {};
 
 export default DashboardPresentation;

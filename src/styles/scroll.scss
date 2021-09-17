@@ -1,3 +1,12 @@
+@mixin hidden-scroll-bar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 @mixin scrollbar-theme-1 {
   // firefox
   scrollbar-width: thin;

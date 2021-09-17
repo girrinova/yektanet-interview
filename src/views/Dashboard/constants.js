@@ -1,24 +1,24 @@
 export const availableFilters = {
-  NAME: "name",
-  DATE: "date",
-  TITLE: "title",
-  FIELD: "field",
+  name: "name",
+  date: "date",
+  title: "title",
+  field: "field",
 };
 
 export const availableFiltersValues = {
-  [availableFilters.NAME]: {
+  [availableFilters.name]: {
     title: "نام تغییردهنده",
     type: "string",
   },
-  [availableFilters.DATE]: {
+  [availableFilters.date]: {
     title: "تاریخ",
     type: "date",
   },
-  [availableFilters.TITLE]: {
+  [availableFilters.title]: {
     title: "نام آگهی",
     type: "string",
   },
-  [availableFilters.FIELD]: {
+  [availableFilters.field]: {
     title: "فیلد",
     type: "string",
   },
@@ -26,17 +26,17 @@ export const availableFiltersValues = {
 
 export const availableSorters = {
   ...availableFilters,
-  OLD_VALUE: "old_value",
-  NEW_VALUE: "new_value",
+  old_value: "old_value",
+  new_value: "new_value",
 };
 
 export const availableSortersValues = {
   ...availableFiltersValues,
-  [availableSorters.OLD_VALUE]: {
+  [availableSorters.old_value]: {
     title: "مقدار قدیمی",
     type: "string",
   },
-  [availableSorters.NEW_VALUE]: {
+  [availableSorters.new_value]: {
     title: "مقدار جدید",
     type: "string",
   },

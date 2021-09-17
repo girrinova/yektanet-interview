@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import update from "immutability-helper";
-import TablePresentation from "./TablePresentation.js";
+import TableDesktopPresentation from "./TableDesktop/TableDesktopPresentation.js";
+import TableMobilePresentation from "./TableMobile/TableMobilePresentation";
 import data from "./data";
-import { sortArrayOfObjectsByField } from "../../../common/utils";
+import {isMobile, sortArrayOfObjectsByField} from "../../../common/utils";
 import { availableFilters } from "../constants";
 import { createDataBST } from "./binarySearch";
+
+const MAX_PAGE = 10000;
+const ITEMS_PER_PAGE = 15;
 
 function TableContainer({ filters }) {
   const [staredRowIds, setStaredRowIds] = useState([]);
   const [sorter, setSorter] = useState("");
   const [rows, setRows] = useState(data);
   const dataBST = createDataBST();
+
+  useEffect(() => {
+    setShowingRowsLength(ITEMS_PER_PAGE);
+  }, [rows]);
+  const [showingRowsLength, setShowingRowsLength] = useState(ITEMS_PER_PAGE);
 
   useEffect(() => {
     setStaredRowIds(JSON.parse(localStorage.getItem("saved-stars")));
@@ -62,9 +71,17 @@ function TableContainer({ filters }) {
     setSorter(fieldName === sorter ? "" : fieldName);
   };
 
-  return (
-    <TablePresentation
-      {...{ staredRowIds, onChangeRowStar, sorter, onChangeSorter, rows }}
+  const showMoreRows = () => {
+    if (showingRowsLength < ITEMS_PER_PAGE * MAX_PAGE) {
+      setShowingRowsLength(showingRowsLength + ITEMS_PER_PAGE);
+    }
+  };
+
+  return isMobile() ? (
+      <TableMobilePresentation {...{ staredRowIds, onChangeRowStar, sorter, onChangeSorter, showMoreRows, rows: rows.slice(0, showingRowsLength) }} />
+  ) : (
+    <TableDesktopPresentation
+      {...{ staredRowIds, onChangeRowStar, sorter, onChangeSorter, showMoreRows, rows: rows.slice(0, showingRowsLength) }}
     />
   );
 }

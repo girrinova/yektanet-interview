@@ -1,4 +1,4 @@
-@import "src/styles/scroll";
+@import "../../../../styles/scroll";
 
 .dashboard-table {
   flex-grow: 1;
@@ -102,8 +102,8 @@
       padding: 5px;
 
       &:hover {
-        border: 1px solid #ececec;
         border-radius: 50%;
+        box-shadow: 0 3px 5px 0 rgba(138, 138, 138, 0.4);
       }
     }
   }

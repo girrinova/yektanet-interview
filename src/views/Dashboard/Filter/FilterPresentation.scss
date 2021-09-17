@@ -1,7 +1,12 @@
+@import "src/styles/scroll";
+
 .dashboard-filters {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  overflow: auto;
+
+  @include hidden-scroll-bar;
 
   > *:not(:last-child) {
     margin-left: 10px;

@@ -13,7 +13,7 @@ function TableDesktopPresentation({
   sorter,
   onChangeSorter,
   rows,
-                                    showMoreRows,
+  showMoreRows,
 }) {
   const renderTitles = () => {
     return (

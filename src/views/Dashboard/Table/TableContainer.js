@@ -4,7 +4,7 @@ import update from "immutability-helper";
 import TableDesktopPresentation from "./TableDesktop/TableDesktopPresentation.js";
 import TableMobilePresentation from "./TableMobile/TableMobilePresentation";
 import data from "./data";
-import {isMobile, sortArrayOfObjectsByField} from "../../../common/utils";
+import { isMobile, sortArrayOfObjectsByField } from "../../../common/utils";
 import { availableFilters } from "../constants";
 import { createDataBST } from "./binarySearch";
 
@@ -78,10 +78,26 @@ function TableContainer({ filters }) {
   };
 
   return isMobile() ? (
-      <TableMobilePresentation {...{ staredRowIds, onChangeRowStar, sorter, onChangeSorter, showMoreRows, rows: rows.slice(0, showingRowsLength) }} />
+    <TableMobilePresentation
+      {...{
+        staredRowIds,
+        onChangeRowStar,
+        sorter,
+        onChangeSorter,
+        showMoreRows,
+        rows: rows.slice(0, showingRowsLength),
+      }}
+    />
   ) : (
     <TableDesktopPresentation
-      {...{ staredRowIds, onChangeRowStar, sorter, onChangeSorter, showMoreRows, rows: rows.slice(0, showingRowsLength) }}
+      {...{
+        staredRowIds,
+        onChangeRowStar,
+        sorter,
+        onChangeSorter,
+        showMoreRows,
+        rows: rows.slice(0, showingRowsLength),
+      }}
     />
   );
 }

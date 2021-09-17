@@ -22,7 +22,7 @@ function TableContainer({ filters, sorter, setSorter }) {
   const [showingRowsLength, setShowingRowsLength] = useState(ITEMS_PER_PAGE);
 
   useEffect(() => {
-    setStaredRowIds(JSON.parse(localStorage.getItem("saved-stars")));
+    setStaredRowIds(JSON.parse(localStorage.getItem("saved-stars")) || []);
   }, []);
 
   useEffect(() => {

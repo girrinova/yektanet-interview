@@ -5,6 +5,7 @@ import Table from "./Table";
 import { useHistory } from "react-router-dom";
 import { useQuery } from "../../common/hooks";
 import { removeEmptyValuesFromObject } from "../../common/utils";
+import { availableSorters } from "./constants";
 
 function DashboardPresentation() {
   const history = useHistory();
@@ -14,7 +15,9 @@ function DashboardPresentation() {
   const urlSorter = query.get("sorter");
 
   useEffect(() => {
-    setSorter(urlSorter || "");
+    if (availableSorters[urlSorter] || !urlSorter) {
+      setSorter(urlSorter || "");
+    }
   }, [urlSorter]);
 
   const onChangeSorter = (newSorter) => {

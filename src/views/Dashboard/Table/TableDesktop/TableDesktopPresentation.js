@@ -39,7 +39,7 @@ function TableDesktopPresentation({
           return (
             <div
               key={row.id}
-              className={staredRowIds.includes(row.id) ? "stared" : ""}
+              className={staredRowIds?.includes(row.id) ? "stared" : ""}
               onClick={() => onChangeRowStar(row.id)}
             >
               <img src={bookMarkIcon} alt={""} />
@@ -57,11 +57,17 @@ function TableDesktopPresentation({
 
   return (
     <div className={"dashboard-table"}>
-      {renderTitles()}
-      {renderRows()}
-      <div className="dt-load-more" onClick={showMoreRows}>
-        <img src={expandIcon} alt={"more"} />
-      </div>
+      {rows.length ? (
+        <>
+          {renderTitles()}
+          {renderRows()}
+          <div className="dt-load-more" onClick={showMoreRows}>
+            <img src={expandIcon} alt={"more"} />
+          </div>
+        </>
+      ) : (
+        <p>اطلاعاتی جهت نمایش وجود ندارد.</p>
+      )}
     </div>
   );
 }

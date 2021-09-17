@@ -5,6 +5,7 @@ import FilterPresentation from "./FilterPresentation.js";
 import { usePrevious, useQuery } from "../../../common/hooks";
 import { availableFilters, availableFiltersValues } from "../constants";
 import { initialValuesBasedOnTypes } from "../../../common/constants";
+import { removeEmptyValuesFromObject } from "../../../common/utils";
 
 const initialFilters = Object.values(availableFilters).reduce(
   (result, item) => ({
@@ -24,16 +25,26 @@ function FilterContainer({ filters, setFilters }) {
     if (
       JSON.stringify(urlSearchValues) !== JSON.stringify(prevUrlSearchValues)
     ) {
-      setFilters(urlSearchValues);
+      setFilters(
+        Object.entries(urlSearchValues).reduce(
+          (result, [key, value]) => ({
+            ...result,
+            ...(availableFilters[key] && value ? { [key]: value } : {}),
+          }),
+          {}
+        )
+      );
     }
   }, [urlSearchValues]);
 
   const onChangeFilters = (newValue) => {
     history.push(
-      `/dashboard?${new URLSearchParams({
-        ...filters,
-        ...newValue,
-      }).toString()}`
+      `/dashboard?${new URLSearchParams(
+        removeEmptyValuesFromObject({
+          ...filters,
+          ...newValue,
+        })
+      ).toString()}`
     );
   };
 

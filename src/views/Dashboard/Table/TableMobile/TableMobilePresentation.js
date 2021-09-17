@@ -19,7 +19,7 @@ function TableMobilePresentation({
           <div
             key={row.id}
             className={`dt-card ${
-              staredRowIds.includes(row.id) ? "stared" : ""
+              staredRowIds?.includes(row.id) ? "stared" : ""
             }`}
             onClick={() => onChangeRowStar(row.id)}
           >

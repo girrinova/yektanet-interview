@@ -8,7 +8,10 @@
   flex-direction: column;
   padding: 20px;
 
-  > *:not(:last-child) {
-    margin-bottom: 20px;
+  > * {
+    flex-shrink: 0;
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
   }
 }

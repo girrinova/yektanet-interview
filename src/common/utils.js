@@ -16,3 +16,18 @@ export function isMobile() {
     mobileRegex1.test(userAgent) || mobileRegex2.test(userAgent.substr(0, 4))
   );
 }
+
+function isEmpty(value) {
+  return (
+    value === undefined ||
+    value === null ||
+    value === "" ||
+    (typeof value === "object" && Object.values(value).length === 0)
+  );
+}
+
+export function removeEmptyValuesFromObject(object) {
+  return Object.entries(object)
+    .filter(([, value]) => !isEmpty(value))
+    .reduce((result, [key, value]) => ({ ...result, [key]: value }), {});
+}

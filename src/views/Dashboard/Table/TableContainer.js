@@ -36,16 +36,16 @@ function TableContainer({ filters }) {
 
   useEffect(() => {
     if (sorter === "") {
-      setRows(data);
+      setRows(applyFilters(rows));
     } else {
-      setRows(sortArrayOfObjectsByField(data, sorter));
+      setRows(sortArrayOfObjectsByField(rows, sorter));
     }
   }, [sorter]);
 
   const applyFilters = () => {
     let filteredArray = [...data];
-    if (filters[availableFilters.DATE]) {
-      filteredArray = dataBST?.find(filters[availableFilters.DATE])?.items;
+    if (filters[availableFilters.date]) {
+      filteredArray = dataBST?.find(filters[availableFilters.date])?.items;
     }
     return Object.entries(filters).reduce(
       (result, [key, value]) => {
@@ -58,7 +58,7 @@ function TableContainer({ filters }) {
   };
 
   const onChangeRowStar = (rowID) => {
-    const index = staredRowIds.indexOf(rowID);
+    const index = staredRowIds?.indexOf(rowID);
     setStaredRowIds(
       update(
         staredRowIds,

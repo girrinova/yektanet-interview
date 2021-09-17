@@ -42,7 +42,7 @@ function TableMobilePresentation({
   };
 
   return (
-    <div className={"dashboard-table"}>
+    <div className={"dashboard-mobile-table"}>
       {renderCards()}
       <div className="dt-load-more" onClick={showMoreRows}>
         <img src={expandIcon} alt={"more"} />

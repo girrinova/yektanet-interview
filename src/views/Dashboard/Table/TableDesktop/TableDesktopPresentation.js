@@ -56,7 +56,7 @@ function TableDesktopPresentation({
   };
 
   return (
-    <div className={"dashboard-table"}>
+    <div className={"dashboard-desktop-table"}>
       {rows.length ? (
         <>
           {renderTitles()}

@@ -3,7 +3,11 @@ import PropTypes from "prop-types";
 import { useHistory } from "react-router-dom";
 import FilterPresentation from "./FilterPresentation.js";
 import { usePrevious, useQuery } from "../../../common/hooks";
-import { availableFilters, availableFiltersValues } from "../constants";
+import {
+  availableFilters,
+  availableFiltersValues,
+  availableSorters,
+} from "../constants";
 import { initialValuesBasedOnTypes } from "../../../common/constants";
 import { removeEmptyValuesFromObject } from "../../../common/utils";
 
@@ -15,7 +19,7 @@ const initialFilters = Object.values(availableFilters).reduce(
   {}
 );
 
-function FilterContainer({ filters, setFilters }) {
+function FilterContainer({ filters, setFilters, sorter }) {
   const history = useHistory();
   const query = useQuery();
   const urlSearchValues = Object.fromEntries(query.entries());
@@ -25,15 +29,14 @@ function FilterContainer({ filters, setFilters }) {
     if (
       JSON.stringify(urlSearchValues) !== JSON.stringify(prevUrlSearchValues)
     ) {
-      setFilters(
-        Object.entries(urlSearchValues).reduce(
-          (result, [key, value]) => ({
-            ...result,
-            ...(availableFilters[key] && value ? { [key]: value } : {}),
-          }),
-          {}
-        )
+      const newFilters = Object.entries(urlSearchValues).reduce(
+        (result, [key, value]) =>
+          availableFilters[key] && value && { ...result, [key]: value },
+        {}
       );
+      if (JSON.stringify(newFilters) !== JSON.stringify(filters)) {
+        setFilters(newFilters);
+      }
     }
   }, [urlSearchValues]);
 
@@ -41,6 +44,7 @@ function FilterContainer({ filters, setFilters }) {
     history.push(
       `/dashboard?${new URLSearchParams(
         removeEmptyValuesFromObject({
+          sorter,
           ...filters,
           ...newValue,
         })
@@ -58,11 +62,13 @@ function FilterContainer({ filters, setFilters }) {
 FilterContainer.propTypes = {
   filters: PropTypes.object,
   setFilters: PropTypes.func,
+  sorter: PropTypes.oneOf([...Object.values(availableSorters), ""]),
 };
 
 FilterContainer.defaultProps = {
   filters: {},
   setFilters: () => {},
+  sorter: "",
 };
 
 export default FilterContainer;

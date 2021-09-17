@@ -11,9 +11,8 @@ import { createDataBST } from "./binarySearch";
 const MAX_PAGE = 10000;
 const ITEMS_PER_PAGE = 15;
 
-function TableContainer({ filters }) {
+function TableContainer({ filters, sorter, setSorter }) {
   const [staredRowIds, setStaredRowIds] = useState([]);
-  const [sorter, setSorter] = useState("");
   const [rows, setRows] = useState(data);
   const dataBST = createDataBST();
 
@@ -27,7 +26,7 @@ function TableContainer({ filters }) {
   }, []);
 
   useEffect(() => {
-    setRows(applyFilters());
+    setRows(sortArrayOfObjectsByField(applyFilters(), sorter));
   }, [filters]);
 
   useEffect(() => {
@@ -36,7 +35,7 @@ function TableContainer({ filters }) {
 
   useEffect(() => {
     if (sorter === "") {
-      setRows(applyFilters(rows));
+      setRows(applyFilters());
     } else {
       setRows(sortArrayOfObjectsByField(rows, sorter));
     }
@@ -45,7 +44,8 @@ function TableContainer({ filters }) {
   const applyFilters = () => {
     let filteredArray = [...data];
     if (filters[availableFilters.date]) {
-      filteredArray = dataBST?.find(filters[availableFilters.date])?.items;
+      filteredArray =
+        dataBST?.find(filters[availableFilters.date])?.items || [];
     }
     return Object.entries(filters).reduce(
       (result, [key, value]) => {
@@ -82,8 +82,6 @@ function TableContainer({ filters }) {
       {...{
         staredRowIds,
         onChangeRowStar,
-        sorter,
-        onChangeSorter,
         showMoreRows,
         rows: rows.slice(0, showingRowsLength),
       }}

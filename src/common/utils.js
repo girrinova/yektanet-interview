@@ -27,7 +27,7 @@ function isEmpty(value) {
 }
 
 export function removeEmptyValuesFromObject(object) {
-  return Object.entries(object)
+  return Object.entries({ ...object })
     .filter(([, value]) => !isEmpty(value))
     .reduce((result, [key, value]) => ({ ...result, [key]: value }), {});
 }

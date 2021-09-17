@@ -3,6 +3,11 @@
 .dashboard-mobile-table {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+
+  > *:not(:last-child) {
+    margin-bottom: 10px;
+  }
 
   img {
     width: 15px;

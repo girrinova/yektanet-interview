@@ -8,7 +8,6 @@ import expandIcon from "../../../../assets/icons/expand.svg";
 function TableMobilePresentation({
   staredRowIds,
   onChangeRowStar,
-  onChangeSorter,
   rows,
   showMoreRows,
 }) {
@@ -27,10 +26,7 @@ function TableMobilePresentation({
             {Object.entries(row)
               .filter(([key]) => key !== "id")
               .map(([key, value]) => (
-                <div
-                  className={"dt-card-row"}
-                  onClick={() => onChangeSorter(row)}
-                >
+                <div className={"dt-card-row"}>
                   <h6>{availableSortersValues[key].title}:</h6>
                   <p>{value}</p>
                 </div>
@@ -54,7 +50,6 @@ function TableMobilePresentation({
 TableMobilePresentation.propTypes = {
   staredRowIds: PropTypes.arrayOf(PropTypes.number),
   onChangeRowStar: PropTypes.func,
-  onChangeSorter: PropTypes.func,
   rows: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -72,7 +67,6 @@ TableMobilePresentation.propTypes = {
 TableMobilePresentation.defaultProps = {
   staredRowIds: [],
   onChangeRowStar: () => {},
-  onChangeSorter: () => {},
   rows: [],
   showMoreRows: () => {},
 };
